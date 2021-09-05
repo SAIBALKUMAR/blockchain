@@ -1,0 +1,132 @@
+<html>
+    <head>
+        <title> elction</title>
+    </head>
+    <body>
+        <div>
+            <p id="candidate11"></p>
+            <p id="candidate22"></p>
+            <p id="candidate33"></p>
+            <button id="candidate1">candidate1</button>
+            <button id="candidate2">candidate2</button>
+            <button id="candidate3">candidate3</button>
+            <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+            <script type="module">
+            
+                
+           
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
+        
+
+                var contract;
+                var address ="0x206066edFfbcf3f5011c6242295ffdfc469697E0";
+                var abi =[
+    {
+        "inputs": [],
+        "name": "candidate1",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true,
+        "signature": "0x01243fce"
+    },
+    {
+        "inputs": [],
+        "name": "candidate2",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true,
+        "signature": "0x5b57014c"
+    },
+    {
+        "inputs": [],
+        "name": "candidate3",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true,
+        "signature": "0xb8397d08"
+    },
+    {
+        "inputs": [],
+        "name": "voteforcandidate1",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xcf5070a9"
+    },
+    {
+        "inputs": [],
+        "name": "voteforcandidate2",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x392acca4"
+    },
+    {
+        "inputs": [],
+        "name": "voteforcandidate3",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xc95f455b"
+    }
+];
+                contract = new web3.eth.Contract(abi,address);
+                
+                $('#candidate1').click(function()
+                {
+                web3.eth.getAccounts().then(function(accounts){
+                contract.methods.voteforcandidate1().send({from: accounts[0]});
+                contract.methods.candidate1().call().then(function(can1){
+                $('#candidate11').html(can1);
+                })
+                })
+                })
+                
+                $('#candidate2').click(function()
+                {
+                web3.eth.getAccounts().then(function(accounts){
+                contract.methods.voteforcandidate2().send({from: accounts[0]});
+                contract.methods.candidate2().call().then(function(can2){
+                $('#candidate22').html(can2);
+                })
+                })
+                })
+                
+                $('#candidate3').click(function()
+                {
+                web3.eth.getAccounts().then(function(accounts){
+                contract.methods.voteforcandidate3().send({from: accounts[0]});
+                contract.methods.candidate3().call().then(function(can3){
+                    $('#candidate33').html(can3);
+                })
+                })
+                })
+            
+            </script>
+        </div>
+        
+    </body>
+</html>
